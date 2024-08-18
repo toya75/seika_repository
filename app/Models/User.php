@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    public function study_memories()   
+    {
+    return $this->hasMany(study_meomory::class);  
+    }
+    
+    public function study_summaries()   
+    {
+    return $this->hasMany(study_summary::class);  
+    }
 }

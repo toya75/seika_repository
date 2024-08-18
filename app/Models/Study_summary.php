@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Study_summary extends Model
 {
     use HasFactory;
+    
+    public function user()
+    {
+    return $this->belongsTo(user::class);
+    }
+    
+    public function subject()
+    {
+    return $this->belongsTo(subject::class);
+    }
 }

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Subject extends Model
 {
     use HasFactory;
+    public function study_memories()   
+    {
+    return $this->hasMany(study_meomory::class);  
+    }
+    
+    public function study_summaries()   
+    {
+    return $this->hasMany(study_summary::class);  
+    }
 }
