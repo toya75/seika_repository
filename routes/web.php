@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(Study_memoryController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('index');
+    Route::get('/calendar', 'show')->name("show");
+    Route::post('/calendar/create', 'create')->name("create"); 
+
 });
 
 require __DIR__.'/auth.php';
