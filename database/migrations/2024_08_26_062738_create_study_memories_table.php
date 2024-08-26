@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('study_memories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->unsigned()->constrained()->onDelete('cascade');
-            $table->foreignId('subject_id')->constrained()->onDelete('cascade');
-            $table->integer('hour')->length(2);
+            $table->foreignId('user_id')->unsigned()->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
             $table->timestamp('study_at')->nullable();
+            $table->string('event_title')->comment('イベント名');
+            $table->string('event_body')->nullable()->comment('イベント内容');
+            $table->date('start_date')->comment('開始日');
+            $table->date('end_date')->comment('終了日');
+            $table->string('event_color')->comment('背景色');
+            $table->string('event_border_color')->comment('枠線色');
+
         });
     }
 
