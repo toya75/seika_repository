@@ -16,7 +16,7 @@
 
 
 
-                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                    <x-nav-link :href="route('show')" :active="request()->routeIs('show')">
                     {{ __('記録') }}
                     </x-nav-link>
                 </div>

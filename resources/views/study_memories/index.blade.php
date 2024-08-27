@@ -4,8 +4,10 @@
 
     <body>
         <h1>実装準備中!</h1>
+        
         <div id='calendar'></div>
         
+<!--（ここから）追記1 -->
         <!-- カレンダー新規追加モーダル -->
         <div id="modal-add" class="modal">
             <div class="modal-contents">
@@ -30,15 +32,7 @@
                 </form>
             </div>
         </div>
-        
-        <div class='study_memories'>
-            @foreach ($study_memories as $study_memory)
-                <div class='study_memory'>
-                    <h2 class='title'>{{ $study_memory->title }}</h2>
-                    <p class='body'>{{ $study_memory->body }}</p>
-                </div>
-            @endforeach
-        </div>
+<!-- （ここまで） -->
         
         ログインユーザー：{{ Auth::user()->name }}
         

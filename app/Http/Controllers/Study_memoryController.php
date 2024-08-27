@@ -8,15 +8,14 @@ use App\Models\Study_memory;
 
 class Study_memoryController extends Controller
 {
-    public function index(Study_memory $study_memory)//インポートしたstudy_memoryをインスタンス化して$study_memoryとして使用。
-    {
-    return view('study_memories.index')->with(['study_memories' => $study_memory->get()]);  
-    }
-    
+
+        // カレンダー表示
     public function show(){
-    return view('study_memories.calendar');
+    return view('study_memories.index');
     }
     
+//（ここから）追記
+    // 新規予定追加
     public function create(Request $request, Study_memory $event){
         // バリデーション（eventsテーブルの中でNULLを許容していないものをrequired）
         $request->validate([
@@ -27,7 +26,6 @@ class Study_memoryController extends Controller
         ]);
 
         // 登録処理
-        $event->user_id = $request->user()->id;
         $event->event_title = $request->input('event_title');
         $event->event_body = $request->input('event_body');
         $event->start_date = $request->input('start_date');
@@ -39,9 +37,11 @@ class Study_memoryController extends Controller
         // カレンダー表示画面にリダイレクトする
         return redirect(route("show"));
     }
-    
+//（ここまで）
+
+//（ここから）追記
     // DBから予定取得
-    public function get(Request $request, Event $event){
+    public function get(Request $request, Study_memory $event){
         // バリデーション
         $request->validate([
             'start_date' => 'required|integer',
@@ -70,5 +70,5 @@ class Study_memoryController extends Controller
             ->get();
     }
 //（ここまで）
-    
+
 }
