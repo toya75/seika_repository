@@ -34,6 +34,8 @@ Route::controller(Study_memoryController::class)->middleware(['auth'])->group(fu
     Route::get('/calendar', 'show')->name("show");
     Route::post('/calendar/create', 'create')->name("create");
     Route::post('/calendar/get', 'get')->name("get");
+    Route::put('/calendar/update', 'update')->name("update"); // 予定の更新
+    Route::delete('/calendar/delete', 'delete')->name("delete"); // 予定の削除
 });
 
 require __DIR__.'/auth.php';

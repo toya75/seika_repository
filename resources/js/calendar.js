@@ -3,6 +3,18 @@ import axios from "axios";
 import { Calendar } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction'; // 追記1（interactionPluginの導入）
+
+// （ここから）追記1
+// 日付を-1してYYYY-MM-DDの書式で返すメソッド
+function formatDate(date, pos) {
+    const dt = new Date(date);
+    if(pos==="end"){
+        dt.setDate(dt.getDate() - 1);
+    }
+    return dt.getFullYear() + '-' +('0' + (dt.getMonth()+1)).slice(-2)+ '-' +  ('0' + dt.getDate()).slice(-2);
+}
+// （ここまで）
 
 // カレンダーを表示させたいタグのidを取得
 const calendarEl = document.getElementById("calendar");
@@ -12,7 +24,7 @@ const calendarEl = document.getElementById("calendar");
 if (calendarEl) {
     const calendar = new Calendar(calendarEl, {
         // プラグインの導入(import忘れずに)
-        plugins: [dayGridPlugin, timeGridPlugin],
+        plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin], // 追記2（interactionPluginの導入）
     
         // カレンダー表示
         initialView: "dayGridMonth", // 最初に表示させるページの形式
@@ -43,7 +55,24 @@ if (calendarEl) {
             center: "title", // ヘッダー中央（今表示している月、年）
             end: "eventAddButton dayGridMonth,timeGridWeek", // 追記2（半角スペースは必要）
         },
-        height: "auto", // 高さをウィンドウサイズに揃える
+        height: 'auto', // 高さをウィンドウサイズに揃える
+        
+// （ここから）追記3
+    // カレンダーで日程を指定して新規予定追加
+    selectable: true, // 日程の選択を可能にする
+    select: function (info) { // 日程を選択した後に行う処理を記述
+        // 選択した日程を反映（のこりは初期化）
+        document.getElementById("new-id").value = "";
+        document.getElementById("new-event_title").value = "";
+        document.getElementById("new-start_date").value = formatDate(info.start); // 選択した開始日を反映
+        document.getElementById("new-end_date").value = formatDate(info.end, "end"); // 選択した終了日を反映
+        document.getElementById("new-event_body").value = "";
+        document.getElementById("new-event_color").value = "blue";
+
+        // 新規予定追加モーダルを開く
+        document.getElementById('modal-add').style.display = 'flex';
+    },
+//（ここまで）
         
 //（ここから）追記
     // DBに登録した予定を表示する
@@ -67,7 +96,28 @@ if (calendarEl) {
             });
     },
 // （ここまで）
+
+// （ここから）追記2
+    // 予定をクリックすると予定編集モーダルが表示される
+    eventClick: function(info) {
+        // console.log(info.event); // info.event内に予定の全情報が入っているので、必要に応じて参照すること
+        document.getElementById("id").value = info.event.id;
+        document.getElementById("delete-id").value = info.event.id; // ここを追記
+        document.getElementById("event_title").value = info.event.title;
+        document.getElementById("start_date").value = formatDate(info.event.start);
+        document.getElementById("end_date").value = formatDate(info.event.end, "end");
+        document.getElementById("event_body").value = info.event.extendedProps.description;
+        document.getElementById("event_color").value = info.event.backgroundColor;
+
+        // 予定編集モーダルを開く
+        document.getElementById('modal-update').style.display = 'flex';
         
+         
+    },
+// （ここまで）
+
+
+
     });
     
     // カレンダーのレンダリング
@@ -79,4 +129,22 @@ window.closeAddModal = function(){
     document.getElementById('modal-add').style.display = 'none';
 }
 // （ここまで）
+
+//（ここから）追記
+// 予定編集モーダルを閉じる
+window.closeUpdateModal = function(){
+    document.getElementById('modal-update').style.display = 'none';
+}
+// （ここまで）
+
+//（ここから）追記
+window.deleteEvent = function(){
+    'use strict'
+
+    if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+        document.getElementById('delete-form').submit();
+    }
+}
+// （ここまで）
+
 }
