@@ -16,27 +16,27 @@ if (calendarEl) {
     
         // カレンダー表示
         initialView: "dayGridMonth", // 最初に表示させるページの形式
-        
-        // （ここから）追記1
-        customButtons: { // カスタムボタン
-            eventAddButton: { // 新規予定追加ボタン
-                text: '予定を追加',
-                click: function() {
+
+// （ここから）追記1
+    customButtons: { // カスタムボタン
+        eventAddButton: { // 新規予定追加ボタン
+            text: '予定を追加',
+            click: function() {
                 // 初期化（以前入力した値をクリアする）
-                    document.getElementById("new-id").value = "";
-                    document.getElementById("new-event_title").value = "";
-                    document.getElementById("new-start_date").value = "";
-                    document.getElementById("new-end_date").value = "";
-                    document.getElementById("new-event_body").value = "";
-                    document.getElementById("new-event_color").value = "blue";
+                document.getElementById("new-id").value = "";
+                document.getElementById("new-event_title").value = "";
+                document.getElementById("new-start_date").value = "";
+                document.getElementById("new-end_date").value = "";
+                document.getElementById("new-event_body").value = "";
+                document.getElementById("new-event_color").value = "blue";
 
                 // 新規予定追加モーダルを開く
-                    document.getElementById('modal-add').style.display = 'flex';
-                }
+                document.getElementById('modal-add').style.display = 'flex';
             }
-        },
-        //（ここまで）
-        
+        }
+    },
+//（ここまで）
+
         headerToolbar: { // ヘッダーの設定
             // コンマのみで区切るとページ表示時に間が空かず、半角スペースで区切ると間が空く（半角があるかないかで表示が変わることに注意）
             start: "prev,next today", // ヘッダー左（前月、次月、今日の順番で左から配置）
@@ -66,16 +66,17 @@ if (calendarEl) {
                 alert("登録に失敗しました。");
             });
     },
-// （ここまで）    
-
+// （ここまで）
+        
     });
     
     // カレンダーのレンダリング
     calendar.render();
+    
 //（ここから）追記
 // 新規予定追加モーダルを閉じる
-    window.closeAddModal = function(){
+window.closeAddModal = function(){
     document.getElementById('modal-add').style.display = 'none';
-    }
+}
 // （ここまで）
 }
