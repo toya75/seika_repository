@@ -10,13 +10,13 @@ class Study_memoryController extends Controller
 {
 
         // カレンダー表示
-    public function show(){
+    public function memory_show(){
     return view('study_memories.index');
     }
     
 //（ここから）追記
     // 新規予定追加
-    public function create(Request $request, Study_memory $event){
+    public function memory_create(Request $request, Study_memory $event){
         // バリデーション（eventsテーブルの中でNULLを許容していないものをrequired）
         $request->validate([
             'event_title' => 'required',
@@ -35,13 +35,13 @@ class Study_memoryController extends Controller
         $event->save();
 
         // カレンダー表示画面にリダイレクトする
-        return redirect(route("show"));
+        return redirect(route("memory_show"));
     }
 //（ここまで）
 
 //（ここから）追記
     // DBから予定取得
-    public function get(Request $request, Study_memory $event){
+    public function memory_get(Request $request, Study_memory $event){
         // バリデーション
         $request->validate([
             'start_date' => 'required|integer',
@@ -72,7 +72,7 @@ class Study_memoryController extends Controller
 //（ここまで）
 //（ここから）追記
     // 予定の更新
-    public function update(Request $request, Study_memory $event){
+    public function memory_update(Request $request, Study_memory $event){
         $input = new Study_memory();
 
         $input->event_title = $request->input('event_title');
@@ -86,18 +86,18 @@ class Study_memoryController extends Controller
         $event->find($request->input('id'))->fill($input->attributesToArray())->save(); // fill()の中身はArray型が必要だが、$inputのままではコレクションが返ってきてしまうため、Array型に変換
 
         // カレンダー表示画面にリダイレクトする
-        return redirect(route("show"));
+        return redirect(route("memory_show"));
     }
 //（ここまで）
 
 //（ここから）追記
     // 予定の削除
-    public function delete(Request $request, Study_memory $event){
+    public function memory_delete(Request $request, Study_memory $event){
         // 削除する予定をDBから探し（find）、DBから物理削除する（delete）
         $event->find($request->input('id'))->delete();
 
         // カレンダー表示画面にリダイレクトする
-        return redirect(route("show"));
+        return redirect(route("memory_show"));
     }
 //（ここまで）
 

@@ -11,7 +11,7 @@
         <!-- カレンダー新規追加モーダル -->
         <div id="modal-add" class="modal">
             <div class="modal-contents">
-                <form method="POST" action="{{ route('create') }}">
+                <form method="POST" action="{{ route('memory_create') }}">
                     @csrf
                     <input id="new-id" type="hidden" name="id" value="" />
                     <label for="event_title">タイトル</label>
@@ -38,7 +38,7 @@
         <!-- カレンダー編集モーダル -->
         <div id="modal-update" class="modal">
             <div class="modal-contents">
-                <form method="POST" action="{{ route('update') }}" >
+                <form method="POST" action="{{ route('memory_update') }}" >
                     @csrf
                     @method('PUT')
                     <input type="hidden" id="id" name="id" value="" />
@@ -57,15 +57,15 @@
                     </select>
                     <button type="button" onclick="closeUpdateModal()">キャンセル</button>
                     <button type="submit">決定</button>
-                
+                </form>
 <!--（ここから）追記 -->
-                  <form id="delete-form" method="post" action="{{ route('delete') }}">
+                  <form id="delete-form" method="post" action="{{ route('memory_delete') }}">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" id="delete-id" name="id" value="" />
                     <button class="delete" type="button" onclick="deleteEvent()">削除</button>
                   </form>
-                 </form>
+                 
 <!-- （ここまで） -->
             </div>
         </div>
@@ -100,7 +100,7 @@
 /* モーダル */
 .modal-contents{
     background-color: white;
-    height: 400px;
+    height: 410px;
     width: 600px;
     padding: 20px;
 }
