@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Study_memoryController;
+use App\Http\Controllers\Study_summaryController;
+use App\Http\Controllers\GachaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,11 +33,21 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(Study_memoryController::class)->middleware(['auth'])->group(function(){
 
-    Route::get('/calendar', 'show')->name("show");
-    Route::post('/calendar/create', 'create')->name("create");
-    Route::post('/calendar/get', 'get')->name("get");
-    Route::put('/calendar/update', 'update')->name("update"); // 予定の更新
-    Route::delete('/calendar/delete', 'delete')->name("delete"); // 予定の削除
+    Route::get('/calendar', 'memory_show')->name("memory_show");
+    Route::post('/calendar/create', 'memory_create')->name("memory_create");
+    Route::post('/calendar/get', 'memory_get')->name("memory_get");
+    Route::put('/calendar/update', 'memory_update')->name("memory_update"); // 予定の更新
+    Route::delete('/calendar/delete', 'memory_delete')->name("memory_delete"); // 予定の削除
+});
+
+Route::controller(Study_summaryController::class)->middleware(['auth'])->group(function(){
+
+    Route::get('/summary', 'summary_show')->name("summary_show");
+});
+
+Route::controller(GachaController::class)->middleware(['auth'])->group(function(){
+
+    Route::get('/gacha', 'gacha_show')->name("gacha_show");
 });
 
 require __DIR__.'/auth.php';

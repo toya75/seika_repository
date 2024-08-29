@@ -15,10 +15,17 @@
 
 
 
-
-                    <x-nav-link :href="route('show')" :active="request()->routeIs('show')">
+                    
+                    <x-nav-link :href="route('memory_show')" :active="request()->routeIs('memory_show')">
                     {{ __('記録') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('summary_show')" :active="request()->routeIs('summary_show')">
+                    {{ __('統計') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('gacha_show')" :active="request()->routeIs('gacha_show')">
+                    {{ __('ガチャ') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
