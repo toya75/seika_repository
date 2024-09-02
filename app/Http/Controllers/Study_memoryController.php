@@ -24,12 +24,13 @@ class Study_memoryController extends Controller
             'end_date' => 'required',
             'event_color' => 'required',
         ]);
+        
 
         // 登録処理
         $event->event_title = $request->input('event_title');
         $event->event_body = $request->input('event_body');
         $event->start_date = $request->input('start_date');
-        $event->end_date = date("Y-m-d", strtotime("{$request->input('end_date')} +1 day")); // FullCalendarが登録する終了日は仕様で1日ずれるので、その修正を行っている
+        $event->end_date = $request->input('end_date'); 
         $event->event_color = $request->input('event_color');
         $event->event_border_color = $request->input('event_color');
         $event->save();
@@ -100,5 +101,13 @@ class Study_memoryController extends Controller
         return redirect(route("memory_show"));
     }
 //（ここまで）
+   private function sum(string $title){
+       $events = Study_memory::where('event_title', $title)->get();
+       $sum = 0;
+        foreach($events as $event){
+            $sum += $event->end_date - $event->start_date;
+        }
+        return $sum;
+   }
 
 }

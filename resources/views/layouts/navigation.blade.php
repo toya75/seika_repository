@@ -25,6 +25,8 @@
                     <x-nav-link :href="route('gacha_show')" :active="request()->routeIs('gacha_show')">
                     {{ __('ガチャ') }}
                     </x-nav-link>
+                    
+
 
                 </div>
             </div>

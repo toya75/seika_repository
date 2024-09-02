@@ -6,6 +6,7 @@ use App\Http\Controllers\Study_memoryController;
 use App\Http\Controllers\Study_summaryController;
 use App\Http\Controllers\GachaController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,5 +50,7 @@ Route::controller(GachaController::class)->middleware(['auth'])->group(function(
 
     Route::get('/gacha', 'gacha_show')->name("gacha_show");
 });
+
+
 
 require __DIR__.'/auth.php';

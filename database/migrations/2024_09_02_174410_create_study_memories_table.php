@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('study_memories', function (Blueprint $table) {
         $table->id();
-        $table->string('event_title')->comment('イベント名');
-        $table->string('event_body')->nullable()->comment('イベント内容');
-        $table->date('start_date')->comment('開始日');
-        $table->date('end_date')->comment('終了日');
+        $table->string('event_title')->comment('科目名');
+        $table->string('event_body')->nullable()->comment('科目内容');
+        $table->timestamp('start_date')->nullable()->comment('開始日');
+        $table->timestamp('end_date')->nullable()->comment('終了日');
         $table->string('event_color')->comment('背景色');
         $table->string('event_border_color')->comment('枠線色');
         $table->timestamps();
+
         });
     }
 

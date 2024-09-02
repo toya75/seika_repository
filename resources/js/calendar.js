@@ -25,9 +25,16 @@ if (calendarEl) {
     const calendar = new Calendar(calendarEl, {
         // プラグインの導入(import忘れずに)
         plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin], // 追記2（interactionPluginの導入）
-    
+        
+        
+  slotDuration: '00:15:00',
+  slotLabelInterval: '01:00',
+  
+  
+  
         // カレンダー表示
         initialView: "dayGridMonth", // 最初に表示させるページの形式
+
 
 // （ここから）追記1
     customButtons: { // カスタムボタン
