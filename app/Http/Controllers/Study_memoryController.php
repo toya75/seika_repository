@@ -50,7 +50,7 @@ class Study_memoryController extends Controller
         ]);
 
         // 現在カレンダーが表示している日付の期間
-        $start_date = date('Y-m-d', $request->input('start_date') / 1000); // 日付変換（JSのタイムスタンプはミリ秒なので秒に変換）
+        $start_date = date('Y-m-d',$request->input('start_date') / 1000); // 日付変換（JSのタイムスタンプはミリ秒なので秒に変換）
         $end_date = date('Y-m-d', $request->input('end_date') / 1000);
 
         // 予定取得処理（これがaxiosのresponse.dataに入る）
@@ -79,7 +79,7 @@ class Study_memoryController extends Controller
         $input->event_title = $request->input('event_title');
         $input->event_body = $request->input('event_body');
         $input->start_date = $request->input('start_date');
-        $input->end_date = date("Y-m-d", strtotime("{$request->input('end_date')} +1 day"));
+        $input->end_date = $request->input('end_date'); 
         $input->event_color = $request->input('event_color');
         $input->event_border_color = $request->input('event_color');
 
