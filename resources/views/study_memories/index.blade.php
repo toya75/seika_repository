@@ -45,9 +45,9 @@
                     <label for="event_title">科目</label>
                     <input class="input-title" type="text" id="event_title" name="event_title" value="" />
                     <label for="start_date">開始日時</label>
-                    <input class="input-date" type="timestamp" id="start_date" name="start_date" value="" />
+                    <input class="input-date" type="datetime-local" id="start_date" name="start_date" value="" />
                     <label for="end_date">終了日時</label>
-                    <input class="input-date" type="timestamp" id="end_date" name="end_date" value="" />
+                    <input class="input-date" type="datetime-local" id="end_date" name="end_date" value="" />
                     <label for="event_body" style="display: block">内容</label>
                     <textarea id="event_body" name="event_body" rows="3" value=""></textarea>
                     <label for="event_color">背景色</label>
