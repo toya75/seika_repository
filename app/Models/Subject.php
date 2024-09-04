@@ -13,8 +13,5 @@ class Subject extends Model
     return $this->hasMany(study_meomory::class);  
     }
     
-    public function study_summaries()   
-    {
-    return $this->hasMany(study_summary::class);  
-    }
+
 }

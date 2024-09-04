@@ -12,7 +12,7 @@ function formatDate(date, pos) {
     if(pos==="end"){
         dt.setDate(dt.getDate() - 1);
     }
-    return dt.getFullYear() + '-' +('0' + (dt.getMonth()+1)).slice(-2)+ '-' +  ('0' + dt.getDate()).slice(-2);
+    return dt.getFullYear() + '-' +('0' + (dt.getMonth()+1)).slice(-2)+ '-' +  ('0' + dt.getDate()).slice(-2)+ 'T'+ ('0'+ dt.getHours()).slice(-2)+ ':'+ ('0' + dt.getMinutes()).slice(-2);
 }
 // （ここまで）
 

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('study_summaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unsigned()->constrained()->onDelete('cascade');
-            $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->integer('hour')->length(2);
             $table->integer('year');
             $table->integer('month')->length(2);

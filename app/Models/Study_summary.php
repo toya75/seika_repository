@@ -14,8 +14,5 @@ class Study_summary extends Model
     return $this->belongsTo(user::class);
     }
     
-    public function subject()
-    {
-    return $this->belongsTo(subject::class);
-    }
+
 }

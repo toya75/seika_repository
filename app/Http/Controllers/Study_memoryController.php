@@ -6,12 +6,33 @@ use Illuminate\Http\Request;
 
 use App\Models\Study_memory;
 
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Study_summary;
+
 class Study_memoryController extends Controller
 {
 
         // カレンダー表示
     public function memory_show(){
-    return view('study_memories.index');
+  
+        
+       
+       $titles = Study_memory::where('event_title', 'テスト２')->get();
+       $sum =0;
+       $carbon1 = 0;
+       $carbon2 = 0;
+       
+        
+        foreach($titles as $title){
+            $carbon1 = new Carbon($title->start_date);
+            $carbon2 = new Carbon($title->end_date);
+            $sum += $carbon1->diffInHours($carbon2) ;
+        
+        }
+    return view('study_memories.index')->with('sums',$sum);
     }
     
 //（ここから）追記
@@ -25,7 +46,34 @@ class Study_memoryController extends Controller
             'event_color' => 'required',
         ]);
         
-
+        $startDate = new Carbon($request->start_date);
+        $month = $startDate->format('m');
+        $year = $startDate->format('Y');
+        
+        $record = Study_summary::where('event_title', $request->event_title)->where('month', $month)->where('year', $year)->first();
+        
+        
+        $carbon1 = new Carbon($request->start_date);
+        $carbon2 = new Carbon($request->end_date);
+        $hour = $carbon1->diffInHours($carbon2) ;
+        
+        
+        
+        if ($record) {
+        // 既存のレコードが見つかった場合、時間を追加
+            
+            $record->hour += $hour;
+            $record->save();
+        } else {
+        // 既存のレコードが見つからない場合、新しいレコードを作成
+            $newRecord = new Study_summary();
+            $newRecord->user_id = Auth::id();
+            $newRecord->event_title = $request->event_title;
+            $newRecord->hour = $hour;
+            $newRecord->month = $month;
+            $newRecord->year = $year;
+            $newRecord->save();
+        }
         // 登録処理
         $event->event_title = $request->input('event_title');
         $event->event_body = $request->input('event_body');
