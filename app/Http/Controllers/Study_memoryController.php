@@ -122,6 +122,27 @@ class Study_memoryController extends Controller
 //（ここから）追記
     // 予定の更新
     public function memory_update(Request $request, Study_memory $event){
+        
+        $startDate = new Carbon($request->start_date);
+        $month = $startDate->format('m');
+        $year = $startDate->format('Y');
+        
+        $record = Study_summary::where('event_title', $request->event_title)->where('month', $month)->where('year', $year)->first();
+        $oldrecord = Study_memory::find($request->id);
+        
+        $carbon1 = new Carbon($request->start_date);
+        $carbon2 = new Carbon($request->end_date);
+        $hour = $carbon1->diffInHours($carbon2) ;
+        $oldcarbon1 = new Carbon($oldrecord->start_date);
+        $oldcarbon2 = new Carbon($oldrecord->end_date);
+        $oldhour = $oldcarbon1->diffInHours($oldcarbon2) ;       
+        
+        $difhour = $hour - $oldhour;
+        
+            $record->hour += $difhour;
+            $record->save();
+  
+        
         $input = new Study_memory();
 
         $input->event_title = $request->input('event_title');
@@ -134,6 +155,7 @@ class Study_memoryController extends Controller
         // 更新する予定をDBから探し（find）、内容が変更していたらupdated_timeを変更（fill）して、DBに保存する（save）
         $event->find($request->input('id'))->fill($input->attributesToArray())->save(); // fill()の中身はArray型が必要だが、$inputのままではコレクションが返ってきてしまうため、Array型に変換
 
+
         // カレンダー表示画面にリダイレクトする
         return redirect(route("memory_show"));
     }
@@ -142,6 +164,18 @@ class Study_memoryController extends Controller
 //（ここから）追記
     // 予定の削除
     public function memory_delete(Request $request, Study_memory $event){
+        $oldrecord = Study_memory::find($request->id);
+        $oldDate = new Carbon($oldrecord->start_date);
+        $month = $oldDate->format('m');
+        $year = $oldDate->format('Y');
+        $record = Study_summary::where('event_title', $oldrecord->event_title)->where('month', $month)->where('year', $year)->first();
+        $oldcarbon1 = new Carbon($oldrecord->start_date);
+        $oldcarbon2 = new Carbon($oldrecord->end_date);
+        $oldhour = $oldcarbon1->diffInHours($oldcarbon2) ;  
+
+            $record->hour -= $oldhour;
+            $record->save();
+        
         // 削除する予定をDBから探し（find）、DBから物理削除する（delete）
         $event->find($request->input('id'))->delete();
 

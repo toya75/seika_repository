@@ -10,7 +10,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // 追記1（interact
 function formatDate(date, pos) {
     const dt = new Date(date);
     if(pos==="end"){
-        dt.setDate(dt.getDate() - 1);
+        dt.setDate(dt.getDate());
     }
     return dt.getFullYear() + '-' +('0' + (dt.getMonth()+1)).slice(-2)+ '-' +  ('0' + dt.getDate()).slice(-2)+ 'T'+ ('0'+ dt.getHours()).slice(-2)+ ':'+ ('0' + dt.getMinutes()).slice(-2);
 }
@@ -33,7 +33,7 @@ if (calendarEl) {
   
   
         // カレンダー表示
-        initialView: "dayGridMonth", // 最初に表示させるページの形式
+        initialView: "timeGridWeek", // 最初に表示させるページの形式
 
 
 // （ここから）追記1
