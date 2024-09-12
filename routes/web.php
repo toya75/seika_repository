@@ -44,6 +44,9 @@ Route::controller(Study_memoryController::class)->middleware(['auth'])->group(fu
 Route::controller(Study_summaryController::class)->middleware(['auth'])->group(function(){
 
     Route::get('/summary', 'summary_show')->name("summary_show");
+    Route::get('/summary/count', 'summary_get')->name("summary_get");
+    Route::get('/summary/time', 'summary_time')->name("summary_time");
+    Route::get('/events/{year}/{month}', 'getMonthlyEvents')->name("getMonthlyEvents");
 });
 
 Route::controller(GachaController::class)->middleware(['auth'])->group(function(){
