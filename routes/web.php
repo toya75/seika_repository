@@ -52,6 +52,7 @@ Route::controller(Study_summaryController::class)->middleware(['auth'])->group(f
 Route::controller(GachaController::class)->middleware(['auth'])->group(function(){
 
     Route::get('/gacha', 'gacha_show')->name("gacha_show");
+    Route::post('/gacha/draw', 'gacha_draw')->name("gacha_draw");
 });
 
 
