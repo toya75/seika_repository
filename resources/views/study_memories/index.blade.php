@@ -3,7 +3,6 @@
     <x-app-layout>
 
     <body>
-        <h1>実装準備中!</h1>
         
         <div id='calendar'></div>
         
@@ -71,7 +70,7 @@
         </div>
 <!--（ここまで） -->
     
-            <p>テスト２の勉強時間の総和：{{$sums}}時間</p>
+            
         ログインユーザー：{{ Auth::user()->name }}
         
     </body>

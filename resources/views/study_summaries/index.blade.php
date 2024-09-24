@@ -3,16 +3,16 @@
     <x-app-layout>
 
     <body>
-  <h1>円グラフ</h1>
+        <div class="bodyimage">
   
         <div id="app">
           <div>
-            集計：
-            <button id="prevMonth">前の月</button>
+            <button id="prevMonth" class="gray-button">前の月</button>
             <span id="currentMonth"></span>
-            <button id="nextMonth">次の月</button>
+            <button id="nextMonth" class="gray-button">次の月</button>
             <div id="eventList"></div>
           </div>
+      </div>
       </div>
   <canvas id="myPieChart"></canvas>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
@@ -33,7 +33,7 @@
                 const eventList = document.getElementById('eventList');
                 eventList.innerHTML = '';
                 events.forEach(event => {
-                    eventList.innerHTML += `<p>${event.event_title} - ${event.hour}時</p>`;
+                    eventList.innerHTML += `<p>${event.event_title} - ${event.hour}時間</p>`;
                 });
                 if (myPieChart) {
                     myPieChart.destroy();
@@ -79,3 +79,22 @@
     <script src="https://unpkg.com/chartjs-plugin-colorschemes"></script>
     </x-app-layout>
 </html>
+
+    <style>
+        .bodyimage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px; /* 上部の余白 */
+        }
+        .gray-button {
+            background-color: gray;
+            color: white; /* ボタンの文字色 */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .gray-button:hover {
+            background-color: darkgray; /* ホバー時の色 */
+        }
+    </style>
